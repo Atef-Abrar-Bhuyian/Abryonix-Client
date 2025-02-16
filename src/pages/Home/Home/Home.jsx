@@ -1,5 +1,11 @@
+import HeroBanner from "../HeroBanner/HeroBanner";
+
 const Home = () => {
-  return <div>This is home</div>;
+  return (
+    <div>
+      <HeroBanner></HeroBanner>
+    </div>
+  );
 };
 
 export default Home;
