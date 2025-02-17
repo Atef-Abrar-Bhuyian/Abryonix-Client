@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "^4.0.6",
     "animate.css": "^4.1.1",
     "lottie-react": "^2.4.1",
+    "lucide-react": "^0.475.0",
     "react": "^19.0.0",
     "react-awesome-reveal": "^4.3.1",
     "react-dom": "^19.0.0",
