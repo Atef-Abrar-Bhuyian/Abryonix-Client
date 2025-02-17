@@ -17,7 +17,7 @@ const Navbar = () => {
 
   return (
     <div className="fixed top-0 z-20 w-full backdrop-blur-xl bg-black/50 shadow-md">
-      <div className="container mx-auto flex items-center justify-between px-6 py-4">
+      <div className="container mx-auto flex items-center justify-between px-6 py-2 ">
         {/* Logo */}
         <Link to="/" className="flex items-center text-white text-2xl font-bold">
           <BsRobot className="text-purple-500 mr-2" />
@@ -25,14 +25,13 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6 border border-gray-600 p-2 rounded-full">
+        <nav className="hidden lg:flex items-center space-x-6 border border-gray-800 p-2 rounded-full px-6">
           {links.map((link) => (
             <Link
               key={link.path}
               to={link.path}
               className={`relative px-6 py-3 text-white text-md font-medium transition-all duration-300 
-                after:absolute after:left-0 after:bottom-1 after:h-[2px] after:bg-purple-400 after:w-0 after:transition-all after:duration-300
-                before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-[90%] before:h-[70%] before:bg-purple-500/10 before:rounded-lg before:blur-md before:opacity-0 before:transition-all before:duration-300
+                after:absolute after:left-0 after:bottom-1 after:h-[2px] after:bg-purple-400 after:w-0 after:transition-all after:duration-300 before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-[90%] before:h-[70%] before:bg-purple-500/10 before:rounded-lg before:blur-md before:opacity-0 before:transition-all before:duration-300
                 ${
                   location.pathname === link.path
                     ? "text-purple-400 before:opacity-100 after:w-full"
@@ -47,14 +46,14 @@ const Navbar = () => {
         {/* Get Start Button */}
         <Link
           to="/get-started"
-          className="hidden md:inline-block border-2 border-purple-500 px-4 py-2 rounded-lg text-white transition-all hover:bg-purple-500/20"
+          className="hidden lg:inline-block border-2 border-purple-500 px-4 py-2 rounded-lg text-white transition-all hover:bg-purple-500/20"
         >
           Get Start
         </Link>
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-white text-2xl"
+          className="lg:hidden text-white text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? <FiX /> : <FiMenu />}
@@ -63,7 +62,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation Menu */}
       {menuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-black/90 backdrop-blur-xl p-4 shadow-md">
+        <div className="lg:hidden absolute top-full left-0 w-full bg-black/90 backdrop-blur-xl p-4 shadow-md">
           {links.map((link) => (
             <Link
               key={link.path}

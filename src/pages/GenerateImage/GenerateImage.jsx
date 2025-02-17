@@ -54,7 +54,7 @@ export default function GenerateImagePage() {
   };
 
   return (
-    <div className="mt-32 md:mt-14 flex flex-col md:flex-row min-h-screen bg-[#0F0F1A] text-white">
+    <div className="mt-12 lg:mt-20 flex flex-col md:flex-row min-h-screen bg-[#0F0F1A] text-white">
       {/* Sidebar (Remains Side) */}
       <div className="w-full md:w-1/4 bg-[#161624] p-6 flex flex-col gap-4">
         <div>
