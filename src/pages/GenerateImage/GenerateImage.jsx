@@ -1,18 +1,56 @@
 import { useState } from "react";
-import { Loader } from "lucide-react";
+import { toast } from "react-toastify";
+// import { Loader } from "lucide-react";
 
 export default function GenerateImagePage() {
+  const imgBB_api = `https://api.imgbb.com/1/upload?key=${
+    import.meta.env.VITE_IMGBB_API_KEY
+  }`;
+  const [category, setCategory] = useState("Standard");
   const [prompt, setPrompt] = useState("");
-  const [model, setModel] = useState("Standard");
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedImages, setGeneratedImages] = useState([]);
+
+  const getImageBuffer = async (prompt, category) => {
+    const finalPrompt = `imagine a ${category} : ${prompt}`;
+    console.log(finalPrompt);
+
+    const form = new FormData();
+    form.append("prompt", "shot of vaporwave fashion dog in miami");
+
+    const response = await fetch("https://clipdrop-api.co/text-to-image/v1", {
+      method: "POST",
+      headers: {
+        "x-api-key": import.meta.env.VITE_CD_KEY,
+      },
+      body: form,
+    });
+
+    const buffer = await response.arrayBuffer();
+
+    return buffer;
+  };
+
+  const genrateImageUrl = async (buffer) => {
+    const formData = new FormData();
+    formData.append("image", new Blob([buffer], { type: "image/jpeg" }));
+    const response = await fetch(imgBB_api, {
+      method: "POST",
+      body: formData,
+    });
+    const data = await response.json();
+    return data;
+  };
 
   const handleGenerate = async () => {
-    setIsGenerating(true);
-    setTimeout(() => {
-      setGeneratedImages(["/placeholder.png", "/placeholder.png"]);
-      setIsGenerating(false);
-    }, 2000);
+    if (!prompt) {
+      return toast.error("No Prompt Given.");
+    }
+
+    const buffer = await getImageBuffer(prompt, category);
+    const data = await genrateImageUrl(buffer);
+    console.log(data);
+    // const blob = new Blob([buffer], { type: "image/jpeg" });
+    // const url = URL.createObjectURL(blob);
+    // console.log(url);
   };
 
   return (
@@ -23,8 +61,8 @@ export default function GenerateImagePage() {
           <h2 className="text-lg font-semibold">Model / Preset</h2>
           <select
             className="select select-bordered w-full bg-[#161624] text-white p-2 rounded-lg"
-            value={model}
-            onChange={(e) => setModel(e.target.value)}
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
           >
             <option>Standard</option>
             <option>Ultra HD</option>
@@ -35,22 +73,28 @@ export default function GenerateImagePage() {
           <h2 className="text-lg font-semibold">Generation Mode</h2>
           <select
             className="select select-bordered w-full bg-[#161624] text-white p-2 rounded-lg"
-            value={model}
-            onChange={(e) => setModel(e.target.value)}
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
           >
             <option>Fast</option>
-            <option>Quality</option>
-            <option>Ultra</option>
+            <option disabled className="text-gray-600">
+              Quality
+            </option>
+            <option disabled className="text-gray-600">
+              Ultra
+            </option>
           </select>
         </div>
         <div>
-          <h2 className="text-lg font-semibold">Number of Images</h2>
+          <h2 className="text-lg font-semibold mb-2">Number of Images</h2>
           <div className="flex gap-2">
             {[1, 2, 3, 4].map((num) => (
               <button
                 key={num}
                 className={`px-3 py-2 rounded-lg text-white border ${
-                  num === 1 ? "border-pink-500" : "border-gray-500 text-gray-500 cursor-not-allowed"
+                  num === 1
+                    ? "border-pink-500"
+                    : "border-gray-500 text-gray-500 cursor-not-allowed"
                 }`}
                 disabled={num !== 1}
               >
@@ -77,7 +121,8 @@ export default function GenerateImagePage() {
             onClick={handleGenerate}
             className="btn bg-gradient-to-r from-pink-700 to-purple-800 hover:animate-pulse text-white w-full flex justify-center items-center rounded-xl"
           >
-            {isGenerating ? <Loader className="animate-spin" /> : "Generate"}
+            Generate
+            {/* {isGenerating ? <Loader className="animate-spin" /> : "Generate"} */}
           </button>
         </div>
 
@@ -87,7 +132,7 @@ export default function GenerateImagePage() {
             Generated Images
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {generatedImages.map((img, index) => (
+            {/* {generatedImages.map((img, index) => (
               <div key={index} className="bg-[#222] p-4 rounded-lg">
                 <img
                   src={img}
@@ -95,7 +140,7 @@ export default function GenerateImagePage() {
                   className="rounded-md w-full"
                 />
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
       </div>
