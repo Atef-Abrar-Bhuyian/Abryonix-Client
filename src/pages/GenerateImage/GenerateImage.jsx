@@ -1,20 +1,25 @@
-import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
-// import { Loader } from "lucide-react";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import Loader from "../../components/Loader/Loader";
 
 export default function GenerateImagePage() {
   const { user } = useAuth();
   const [category, setCategory] = useState("Realistic-Image");
   const [prompt, setPrompt] = useState("");
+  const [generatedImage, isGeneratedImage] = useState(null);
+  const [loading, isLoading] = useState(false);
+  const axiosPublic = useAxiosPublic();
 
   const handleGenerate = async () => {
     if (!prompt) {
       return toast.error("No Prompt Given.");
     }
+    isGeneratedImage(null);
+    isLoading(true);
 
-    axios
+    axiosPublic
       .post("/api/v1/image/create", {
         email: user?.email,
         prompt,
@@ -25,7 +30,10 @@ export default function GenerateImagePage() {
           "https://img.icons8.com/?size=100&id=15263&format=png&color=000000",
       })
       .then((res) => {
-        console.log(res.data);
+        isLoading(false);
+        isGeneratedImage(res?.data?.url);
+        toast.success("Image generated successfully!");
+        setPrompt("");
       });
   };
 
@@ -101,7 +109,6 @@ export default function GenerateImagePage() {
             className="btn bg-gradient-to-r from-pink-700 to-purple-800 hover:animate-pulse text-white w-full flex justify-center items-center rounded-xl"
           >
             Generate
-            {/* {isGenerating ? <Loader className="animate-spin" /> : "Generate"} */}
           </button>
         </div>
 
@@ -110,17 +117,12 @@ export default function GenerateImagePage() {
           <h2 className="text-xl font-semibold mb-4 text-center md:text-left">
             Generated Images
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* {generatedImages.map((img, index) => (
-              <div key={index} className="bg-[#222] p-4 rounded-lg">
-                <img
-                  src={img}
-                  alt="Generated AI"
-                  className="rounded-md w-full"
-                />
-              </div>
-            ))} */}
-          </div>
+          {loading && <Loader className="animate-spin" />}
+          {generatedImage && (
+            <div className="flex items-center justify-center">
+              <img className="w-1/2" src={generatedImage} alt="" />
+            </div>
+          )}
         </div>
       </div>
     </div>

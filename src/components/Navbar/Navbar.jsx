@@ -13,7 +13,7 @@ const Navbar = () => {
 
   const links = [
     { name: "Home", path: "/" },
-    { name: "All Images", path: "/tools" },
+    { name: "All Images", path: "/allImages" },
     { name: "Generate", path: "/generateImage" },
     { name: "Roadmap", path: "/roadmap" },
     { name: "How to use", path: "/how-to-use" },
@@ -94,7 +94,7 @@ const Navbar = () => {
           <div className="dropdown dropdown-end hidden lg:inline-block">
             <button
               className="avatar avatar-online cursor-pointer"
-              tabIndex={0} // Required for dropdown to work properly
+              tabIndex={0} 
             >
               <div className="w-14 rounded-full">
                 <img
@@ -107,7 +107,7 @@ const Navbar = () => {
 
             <ul
               className="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm mt-3 p-2"
-              tabIndex={0} // Helps with keyboard navigation
+              tabIndex={0} 
             >
               <li>
                 <Link
