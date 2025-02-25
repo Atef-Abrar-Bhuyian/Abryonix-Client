@@ -1,11 +1,15 @@
 import { BsRobot } from "react-icons/bs";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, logOut } = useAuth();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const links = [
     { name: "Home", path: "/" },
@@ -15,11 +19,44 @@ const Navbar = () => {
     { name: "How to use", path: "/how-to-use" },
   ];
 
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        Swal.fire({
+          title: "Logout Successful",
+          background: "#6b21a8",
+          color: "#fff",
+          confirmButtonColor: "#3b0764",
+          showClass: {
+            popup: `
+                    animate__animated
+                    animate__fadeInUp
+                    animate__faster
+                  `,
+          },
+          hideClass: {
+            popup: `
+                    animate__animated
+                    animate__fadeOutDown
+                    animate__faster
+                  `,
+          },
+        });
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="fixed top-0 z-20 w-full backdrop-blur-xl bg-transparent shadow-md bgtra">
       <div className="container mx-auto flex items-center justify-between px-6 py-2 ">
         {/* Logo */}
-        <Link to="/" className="flex items-center text-white text-2xl font-bold">
+        <Link
+          to="/"
+          className="flex items-center text-white text-2xl font-bold"
+        >
           <BsRobot className="text-purple-500 mr-2" />
           Abryon<span className="text-purple-500">ix</span>
         </Link>
@@ -44,12 +81,53 @@ const Navbar = () => {
         </nav>
 
         {/* Get Start Button */}
-        <Link
-          to="/login"
-          className="hidden lg:inline-block border-2 border-purple-500 px-4 py-2 rounded-lg text-white transition-all hover:bg-purple-500/20"
-        >
-          Get Start
-        </Link>
+        {!user && (
+          <Link
+            to="/login"
+            className="hidden lg:inline-block border-2 border-purple-500 px-4 py-2 rounded-lg text-white transition-all hover:bg-purple-500/20"
+          >
+            Get Start
+          </Link>
+        )}
+
+        {user && (
+          <div className="dropdown dropdown-end hidden lg:inline-block">
+            <button
+              className="avatar avatar-online cursor-pointer"
+              tabIndex={0} // Required for dropdown to work properly
+            >
+              <div className="w-14 rounded-full">
+                <img
+                referrerPolicy="no-referrer"
+                  src={user?.photoURL}
+                  alt="User Avatar"
+                />
+              </div>
+            </button>
+
+            <ul
+              className="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm mt-3 p-2"
+              tabIndex={0} // Helps with keyboard navigation
+            >
+              <li>
+                <Link
+                  to={"profile"}
+                  className="hidden lg:inline-block px-4 py-2 rounded-lg text-white transition-all hover:bg-purple-500/20"
+                >
+                  My Profile
+                </Link>
+              </li>
+              <li>
+                <button
+                  className="hidden lg:inline-block px-4 py-2 rounded-lg text-white transition-all hover:bg-purple-500/20"
+                  onClick={handleLogOut}
+                >
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
 
         {/* Mobile Menu Button */}
         <button
@@ -80,13 +158,39 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
-          <Link
-            to="/login"
-            className="block text-center mt-4 border-2 border-purple-500 px-4 py-2 rounded-lg text-white transition-all hover:bg-purple-500/20"
-            onClick={() => setMenuOpen(false)}
-          >
-            Get Start
-          </Link>
+          {!user && (
+            <Link
+              to="/login"
+              className="block text-center mt-4 border-2 border-purple-500 px-4 py-2 rounded-lg text-white transition-all hover:bg-purple-500/20"
+              onClick={() => setMenuOpen(false)}
+            >
+              Get Start
+            </Link>
+          )}
+
+          {user && (
+            <Link
+              className={`block px-4 py-3 text-white text-lg transition-all relative
+              after:absolute after:left-0 after:bottom-1 after:h-[2px] after:bg-purple-400 after:w-0 after:transition-all after:duration-300
+              before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-[90%] before:h-[70%] before:bg-purple-500/10 before:rounded-lg before:blur-sm before:opacity-0 before:transition-all before:duration-300
+              ${
+                location.pathname === "profile"
+                  ? "text-purple-400 before:opacity-100 after:w-full"
+                  : "hover:text-purple-400 hover:before:opacity-100 hover:after:w-full"
+              }`}
+              onClick={() => setMenuOpen(false)}
+            >
+              My Profile
+            </Link>
+          )}
+          {user && (
+            <button
+              className="block text-center mt-4 border-2 border-purple-500 px-4 py-2 rounded-lg text-white transition-all hover:bg-purple-500/20"
+              onClick={handleLogOut}
+            >
+              Logout
+            </button>
+          )}
         </div>
       )}
     </div>

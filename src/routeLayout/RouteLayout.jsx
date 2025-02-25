@@ -13,12 +13,14 @@ const RouteLayout = () => {
         <Route index element={<Home></Home>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>
-        <Route element={<PrivateRoute />}>
-          <Route
-            path="/generateImage"
-            element={<GenerateImage></GenerateImage>}
-          ></Route>
-        </Route>
+        <Route
+          path="/generateImage"
+          element={
+            <PrivateRoute>
+              <GenerateImage />
+            </PrivateRoute>
+          }
+        />
       </Route>
     </Routes>
   );

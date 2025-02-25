@@ -2,6 +2,7 @@ import { Fade } from "react-awesome-reveal";
 import { BsRobot } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import GoogleLogIn from "../../components/GoogleLogin/GoogleLogin";
 
 const Register = () => {
   return (
@@ -32,9 +33,7 @@ const Register = () => {
 
             {/* Social Signup */}
             <div className="mt-6 w-full flex flex-col gap-3">
-              <button className="btn w-full bg-purple-950 text-white flex items-center justify-center gap-2">
-                <FcGoogle className="text-lg" /> Sign up with Google
-              </button>
+              <GoogleLogIn></GoogleLogIn>
             </div>
 
             {/* OR Divider */}
@@ -65,14 +64,17 @@ const Register = () => {
               placeholder="Password"
               className="input input-bordered w-full mb-3 bg-transparent border-gray-600"
             />
-            <button className="btn btn-primary w-full bg-gradient-to-r from-purple-600 to-indigo-500 text-white">
+            <button className="btn btn-primary w-full bg-gradient-to-r from-purple-600 to-indigo-500 text-white hover:from-indigo-600 hover:to-purple-600">
               Register
             </button>
 
             {/* Login Link */}
             <p className="mt-4 text-gray-500">
               Already have an account?{" "}
-              <Link to="/login" className="text-purple-600 font-bold hover:underline">
+              <Link
+                to="/login"
+                className="text-purple-600 font-bold hover:underline"
+              >
                 Login
               </Link>
             </p>

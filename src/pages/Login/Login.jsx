@@ -1,7 +1,8 @@
 import { Fade } from "react-awesome-reveal";
 import { BsRobot } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom"; // Fixed import
+import { Link } from "react-router-dom";
+import GoogleLogIn from "../../components/GoogleLogin/GoogleLogin";
 
 const Login = () => {
   return (
@@ -21,9 +22,7 @@ const Login = () => {
 
             {/* Login Buttons */}
             <div className="mt-6 w-full flex flex-col gap-3">
-              <button className="btn w-full bg-purple-950 text-white flex items-center justify-center gap-2">
-                <FcGoogle className="text-lg" /> Google
-              </button>
+              <GoogleLogIn></GoogleLogIn>
             </div>
 
             {/* OR Divider */}
@@ -40,8 +39,15 @@ const Login = () => {
               placeholder="Password"
               className="input input-bordered w-full mb-3 bg-transparent"
             />
-            <button className="btn bg-gradient-to-r from-purple-600 to-indigo-500 text-white w-full">Login</button>
-            <p className="mt-4">Dont have an Account? <span className="text-purple-600 font-bold  hover:underline"><Link to={"/register"}>Register Now</Link></span></p>
+            <button className="btn bg-gradient-to-r from-purple-600 to-indigo-500 hover:from-indigo-600 hover:to-purple-600 text-white w-full">
+              Login
+            </button>
+            <p className="mt-4">
+              Dont have an Account?{" "}
+              <span className="text-purple-600 font-bold hover:underline">
+                <Link to={"/register"}>Register Now</Link>
+              </span>
+            </p>
           </div>
 
           {/* Right Side - Image */}
