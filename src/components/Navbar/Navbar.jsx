@@ -21,7 +21,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center text-white text-2xl font-bold">
           <BsRobot className="text-purple-500 mr-2" />
-          AiWave
+          Abryonix
         </Link>
 
         {/* Desktop Navigation */}
@@ -45,7 +45,7 @@ const Navbar = () => {
 
         {/* Get Start Button */}
         <Link
-          to="/get-started"
+          to="/login"
           className="hidden lg:inline-block border-2 border-purple-500 px-4 py-2 rounded-lg text-white transition-all hover:bg-purple-500/20"
         >
           Get Start
@@ -81,7 +81,7 @@ const Navbar = () => {
             </Link>
           ))}
           <Link
-            to="/get-started"
+            to="/login"
             className="block text-center mt-4 border-2 border-purple-500 px-4 py-2 rounded-lg text-white transition-all hover:bg-purple-500/20"
             onClick={() => setMenuOpen(false)}
           >

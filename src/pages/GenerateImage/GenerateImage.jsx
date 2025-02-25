@@ -1,56 +1,30 @@
+import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 // import { Loader } from "lucide-react";
 
 export default function GenerateImagePage() {
-  const imgBB_api = `https://api.imgbb.com/1/upload?key=${
-    import.meta.env.VITE_IMGBB_API_KEY
-  }`;
-  const [category, setCategory] = useState("Standard");
+  const [category, setCategory] = useState("Realistic-Image");
   const [prompt, setPrompt] = useState("");
-
-  const getImageBuffer = async (prompt, category) => {
-    const finalPrompt = `imagine a ${category} : ${prompt}`;
-    console.log(finalPrompt);
-
-    const form = new FormData();
-    form.append("prompt", "shot of vaporwave fashion dog in miami");
-
-    const response = await fetch("https://clipdrop-api.co/text-to-image/v1", {
-      method: "POST",
-      headers: {
-        "x-api-key": import.meta.env.VITE_CD_KEY,
-      },
-      body: form,
-    });
-
-    const buffer = await response.arrayBuffer();
-
-    return buffer;
-  };
-
-  const genrateImageUrl = async (buffer) => {
-    const formData = new FormData();
-    formData.append("image", new Blob([buffer], { type: "image/jpeg" }));
-    const response = await fetch(imgBB_api, {
-      method: "POST",
-      body: formData,
-    });
-    const data = await response.json();
-    return data;
-  };
 
   const handleGenerate = async () => {
     if (!prompt) {
       return toast.error("No Prompt Given.");
     }
 
-    const buffer = await getImageBuffer(prompt, category);
-    const data = await genrateImageUrl(buffer);
-    console.log(data);
-    // const blob = new Blob([buffer], { type: "image/jpeg" });
-    // const url = URL.createObjectURL(blob);
-    // console.log(url);
+    axios
+      .post("/api/v1/image/create", {
+        email: user?.email,
+        prompt,
+        category,
+        displayName: user?.displayName || "Anonymus",
+        photoURL:
+          user?.photoURL ||
+          "https://img.icons8.com/?size=100&id=15263&format=png&color=000000",
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
   };
 
   return (
@@ -64,9 +38,12 @@ export default function GenerateImagePage() {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
-            <option>Standard</option>
-            <option>Ultra HD</option>
-            <option>Creative</option>
+            <option>Realistic-Image</option>
+            <option>Digital-Art</option>
+            <option>Animated-Image</option>
+            <option>Painting</option>
+            <option>Poster</option>
+            <option>Wallpaper</option>
           </select>
         </div>
         <div>
