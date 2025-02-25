@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import useAuth from "../../hooks/useAuth";
 // import { Loader } from "lucide-react";
 
 export default function GenerateImagePage() {
+  const { user } = useAuth();
   const [category, setCategory] = useState("Realistic-Image");
   const [prompt, setPrompt] = useState("");
 

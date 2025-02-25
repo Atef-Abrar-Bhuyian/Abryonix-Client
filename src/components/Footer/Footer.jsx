@@ -3,10 +3,14 @@ import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <footer className="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
+    <footer className="footer sm:footer-horizontal text-base-content p-10 bg-black">
       <aside>
-        <Link to={"/"} className="btn btn-ghost text-xl">
-          Abryonix <BsRobot className="text-pink-500" />
+        <Link
+          to="/"
+          className="flex items-center text-white text-2xl font-bold"
+        >
+          <BsRobot className="text-purple-500 mr-2" />
+          Abryon<span className="text-purple-500">ix</span>
         </Link>
         <p>
           ACME Industries Ltd.

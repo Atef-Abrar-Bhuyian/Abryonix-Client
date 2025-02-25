@@ -3,6 +3,7 @@ import Root from "../layout/Root";
 import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import GenerateImage from "../pages/GenerateImage/GenerateImage";
+import Register from "../pages/Register/Register";
 
 const RouteLayout = () => {
   return (
@@ -10,7 +11,11 @@ const RouteLayout = () => {
       <Route path="/" element={<Root></Root>}>
         <Route index element={<Home></Home>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
-        <Route path="/generateImage" element={<GenerateImage></GenerateImage>}></Route>
+        <Route path="/register" element={<Register></Register>}></Route>
+        <Route
+          path="/generateImage"
+          element={<GenerateImage></GenerateImage>}
+        ></Route>
       </Route>
     </Routes>
   );

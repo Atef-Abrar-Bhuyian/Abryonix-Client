@@ -16,16 +16,16 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="fixed top-0 z-20 w-full backdrop-blur-xl bg-black/50 shadow-md">
+    <div className="fixed top-0 z-20 w-full backdrop-blur-xl bg-transparent shadow-md bgtra">
       <div className="container mx-auto flex items-center justify-between px-6 py-2 ">
         {/* Logo */}
         <Link to="/" className="flex items-center text-white text-2xl font-bold">
           <BsRobot className="text-purple-500 mr-2" />
-          Abryonix
+          Abryon<span className="text-purple-500">ix</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center space-x-6 border border-gray-800 p-2 rounded-full px-6">
+        <nav className="hidden lg:flex items-center space-x-6 border border-purple-900 p-2 rounded-full px-6">
           {links.map((link) => (
             <Link
               key={link.path}

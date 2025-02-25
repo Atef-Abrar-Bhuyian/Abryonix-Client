@@ -1,92 +1,59 @@
 import { Fade } from "react-awesome-reveal";
-import { PiGoogleLogoThin } from "react-icons/pi";
-import { Link } from "react-router";
+import { BsRobot } from "react-icons/bs";
+import { FcGoogle } from "react-icons/fc";
+import { Link } from "react-router-dom"; // Fixed import
 
 const Login = () => {
   return (
-    <div className="min-h-screen flex md:flex-row flex-col-reverse bg-gray-100 transition-all duration-300">
-      {/* Left Section - Login Form */}
-      <div className="flex flex-col items-center justify-center flex-1 px-6 md:px-12 mt-10">
-        <Fade direction="right">
-          <div className="bg-purple-200 shadow-2xl shadow-purple-900 p-8 rounded-xl w-full max-w-md ">
-            <h1 className="text-3xl font-bold text-purple-950 text-center ">
-              Welcome Back!
-            </h1>
-            <p className="text-purple-600 text-center mt-2">
-              Login to continue managing your tasks.
-            </p>
+    <Fade>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-black via-[#250038] to-black p-4">
+        <div className="mt-10 container mx-auto flex flex-col-reverse md:flex-row items-center justify-center w-full rounded-lg shadow-2x">
+          {/* Left Side - Login Form */}
+          <div className="w-full md:w-1/2 p-10 text-white flex flex-col items-center bg-gradient-to-b from-black via-[#250038] to-black">
+            <Link
+              to="/"
+              className="flex items-center text-white text-2xl font-bold"
+            >
+              <BsRobot className="text-purple-500 mr-2" />
+              Abryon<span className="text-purple-500">ix</span>
+            </Link>
+            <p className="mt-4 text-gray-400">Sign up or Login with</p>
 
-            {/* Login Form */}
-            <form 
-            // onSubmit={handleLogin} 
-            className="mt-6 space-y-4">
-              {/* Email Input */}
-              <div>
-                <label className="block text-black text-sm font-medium mb-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  className="w-full p-3 border border-gray-500 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none bg-gray-200 text-gray-900"
-                />
-              </div>
-
-              {/* Password Input */}
-              <div>
-                <label className="block text-black text-sm font-medium mb-1">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Enter your password"
-                  className="w-full p-3 border border-gray-500 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none bg-gray-200 text-gray-900"
-                />
-              </div>
-
-              {/* Login Button */}
-              <button
-                className="w-full bg-purple-800 hover:bg-purple-950 text-white py-3 rounded-lg 
-                font-semibold transition-all duration-300 cursor-pointer"
-              >
-                Login
+            {/* Login Buttons */}
+            <div className="mt-6 w-full flex flex-col gap-3">
+              <button className="btn w-full bg-purple-950 text-white flex items-center justify-center gap-2">
+                <FcGoogle className="text-lg" /> Google
               </button>
-            </form>
-
-            {/* Divider */}
-            <div className="flex items-center justify-center my-4">
-              <span className="w-1/3 border-t border-gray-400"></span>
-              <span className="mx-3 text-black">OR</span>
-              <span className="w-1/3 border-t border-gray-400"></span>
             </div>
 
-            {/* Google Login Button */}
-            <PiGoogleLogoThin></PiGoogleLogoThin>
+            {/* OR Divider */}
+            <div className="divider my-6">OR</div>
 
-            <p className="mt-4 text-black">
-              Don&apos;t have an account?{" "}
-              <Link
-                to={"/register"}
-                className="font-bold text-purple-800 hover:text-purple-950 underline"
-              >
-                Register Now
-              </Link>
-            </p>
+            {/* Manual Login */}
+            <input
+              type="text"
+              placeholder="Email"
+              className="input input-bordered w-full mb-3 bg-transparent"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="input input-bordered w-full mb-3 bg-transparent"
+            />
+            <button className="btn bg-gradient-to-r from-purple-600 to-indigo-500 text-white w-full">Login</button>
+            <p className="mt-4">Dont have an Account? <span className="text-purple-600 font-bold  hover:underline"><Link to={"/register"}>Register Now</Link></span></p>
           </div>
-        </Fade>
-      </div>
 
-      {/* Right Section - Branding */}
-      {/* <div className="bg-purple-200 flex-1 flex flex-col items-center justify-center p-10">
-        <img
-          src={donezoLogo}
-          alt="Donezo Logo"
-          className="border border-purple-600 rounded-full shadow-2xl shadow-black cursor-pointer animate__animated animate__jackInTheBox"
-        />
-      </div> */}
-    </div>
+          {/* Right Side - Image */}
+          <div className="md:w-1/2 w-full">
+            <img
+              src="https://www.zmo.ai/wp-content/uploads/2023/01/2cb25cbe-876c-11ed-8182-0242ac110002_0-YhehaOKxS-transformed-scaled.jpeg"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </Fade>
   );
 };
 
