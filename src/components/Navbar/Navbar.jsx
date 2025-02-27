@@ -50,7 +50,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed top-0 z-20 w-full backdrop-blur-xl bg-transparent shadow-md bgtra">
+      <div className="fixed top-0 z-20 w-full backdrop-blur-xl bg-transparent shadow-md animate__animated animate__fadeInDown">
       <div className="container mx-auto flex items-center justify-between px-6 py-2 ">
         {/* Logo */}
         <Link
@@ -194,6 +194,7 @@ const Navbar = () => {
         </div>
       )}
     </div>
+
   );
 };
 

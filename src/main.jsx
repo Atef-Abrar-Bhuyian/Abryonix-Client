@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router";
 import RouteLayout from "./routeLayout/RouteLayout";
 import { ToastContainer } from "react-toastify";
 import AuthProvider from "./authProvider/AuthProvider";
+import 'animate.css';
 
 
 createRoot(document.getElementById("root")).render(
