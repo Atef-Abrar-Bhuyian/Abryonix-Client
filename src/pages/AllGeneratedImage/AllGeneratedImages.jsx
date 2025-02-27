@@ -12,8 +12,12 @@ const AllGeneratedImages = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const res = await axiosPublic.get("/api/v1/image/all");
-        setImages(res.data);
+        let unshuffled = await axiosPublic.get("/api/v1/image/all");
+        let res = unshuffled?.data
+          .map((value) => ({ value, sort: Math.random() }))
+          .sort((a, b) => a.sort - b.sort)
+          .map(({ value }) => value);
+        setImages(res);
       } catch (error) {
         console.log(error);
         setError("Error fetching images");
@@ -21,7 +25,6 @@ const AllGeneratedImages = () => {
         setLoading(false);
       }
     };
-
     fetchImages();
   }, [axiosPublic]);
 
@@ -37,7 +40,7 @@ const AllGeneratedImages = () => {
             key={image?._id}
             className="relative rounded-lg shadow-lg mb-6 group overflow-hidden"
           >
-            <Link to={`/image/${image?._id}`}>
+            <Link to={`/singleImage/${image?._id}`}>
               <img
                 src={image?.medium_image}
                 alt="AI Generated Image"

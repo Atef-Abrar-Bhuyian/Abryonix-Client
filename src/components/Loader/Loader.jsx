@@ -1,9 +1,9 @@
-import { RingLoader } from "react-spinners";
+import { PacmanLoader } from "react-spinners";
 
 const Loader = () => {
   return (
     <div className="flex items-center justify-center">
-      <RingLoader loading={true} size={50} color="#A020F0" />
+      <PacmanLoader loading={true} size={30} color="#A020F0" />
     </div>
   );
 };
