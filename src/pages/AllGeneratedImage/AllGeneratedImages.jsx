@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Loader from "../../components/Loader/Loader";
 import { Link } from "react-router";
+import { Fade } from "react-awesome-reveal";
 
 const AllGeneratedImages = () => {
   const [images, setImages] = useState([]);
@@ -32,7 +33,8 @@ const AllGeneratedImages = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="container mx-auto mt-26 ">
+    <Fade delay={1000}>
+      <div className="container mx-auto mt-26 ">
       {/* Using the columns utility to create masonry effect */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 min-h-screen">
         {images.map((image) => (
@@ -55,6 +57,7 @@ const AllGeneratedImages = () => {
         ))}
       </div>
     </div>
+    </Fade>
   );
 };
 
