@@ -9,19 +9,28 @@ import { LuSendHorizontal } from "react-icons/lu";
 import useAuth from "../../hooks/useAuth";
 
 const SingleImage = () => {
-  const imageId = useParams();
+  const { id: imageId } = useParams();
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
-  const { id } = useParams();
   const [images, setImages] = useState({});
+  const [allComments, setAllComments] = useState([]);
+  console.log(allComments);
 
   useEffect(() => {
     const fetchImages = async () => {
-      const res = await axiosPublic.get(`/api/v1/image/singleImage/${id}`);
+      const res = await axiosPublic.get(`/api/v1/image/singleImage/${imageId}`);
       setImages(res.data);
     };
     fetchImages();
-  }, [axiosPublic, id]);
+  }, [axiosPublic, imageId]);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      const res = await axiosPublic.get(`/commentRoute/image/${imageId}`);
+      setAllComments(res.data);
+    };
+    fetchComments();
+  }, [axiosPublic, imageId]);
 
   const handleCopy = () => {
     toast.success("Prompt copied to clipboard!", {
@@ -39,11 +48,9 @@ const SingleImage = () => {
   const handleSendComment = (e) => {
     e.preventDefault();
     const comment = e.target.comment.value.trim();
-    
-    if (!comment) return; // Prevent empty comments
-    
-    console.log(comment);
-    
+
+    if (!comment) return;
+
     // Construct the document
     const document = {
       prompt: images?.prompt,
@@ -52,18 +59,12 @@ const SingleImage = () => {
       photoURL: user?.photoURL,
       comment,
     };
-  
+
     // Send the comment to the backend
-    axiosPublic.post(`/commentRoute/createComment`, document)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => console.error("Error posting comment:", err));
-  
+    axiosPublic.post(`/commentRoute/createComment`, document);
     // Reset input field after submitting
     e.target.reset();
   };
-  
 
   return (
     <div className="mt-16 container mx-auto py-10">
@@ -109,7 +110,10 @@ const SingleImage = () => {
             </div>
           </div>
           <div className="mt-6">
-            <form onSubmit={handleSendComment} className="relative flex items-center">
+            <form
+              onSubmit={handleSendComment}
+              className="relative flex items-center"
+            >
               <input
                 name="comment"
                 type="text"
@@ -119,6 +123,57 @@ const SingleImage = () => {
               <LuSendHorizontal className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white cursor-pointer" />
             </form>
           </div>
+          {/* Comments */}
+          {allComments.map((comment) => (
+            <div key={comment?._id} className="flex flex-col mt-6">
+              {/* User's Comment */}
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-8 h-8 rounded-full overflow-hidden">
+                  <img
+                    src={
+                      comment?.photoURL ||
+                      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    }
+                    alt="User Avatar"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="flex-1">
+                  <div className="text-sm font-medium text-white">
+                    <span className="font-bold">
+                      {comment?.userEmail || "Unknown User"}
+                    </span>
+                    <span className="text-gray-400 text-xs ml-2">
+                      {new Date(comment?.createdAt).toLocaleString()}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-white text-sm">{comment?.comment}</p>
+                </div>
+              </div>
+
+              {/* AI's Reply */}
+              {comment?.reply && (
+                <div className="ml-12 flex items-center gap-3 mt-1">
+                  <div className="w-8 h-8 rounded-full overflow-hidden">
+                    <img
+                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      alt="AI Avatar"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-sm font-medium text-white">
+                      <span className="font-bold">AI</span>
+                      <span className="text-gray-400 text-xs ml-2">
+                        {new Date(comment?.createdAt).toLocaleString()}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-white text-sm">{comment?.reply}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </div>
