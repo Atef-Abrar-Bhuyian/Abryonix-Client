@@ -34,9 +34,9 @@ const AllGeneratedImages = () => {
 
   return (
     <Fade delay={1000}>
-      <div className="container mx-auto mt-26 ">
+      <div className=" bg-gradient-to-l from-black via-[#250038] to-black ">
       {/* Using the columns utility to create masonry effect */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 min-h-screen">
+      <div className="pt-26 w-11/12 mx-auto  grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 min-h-screen">
         {images.map((image) => (
           <div
             key={image?._id}
@@ -46,7 +46,7 @@ const AllGeneratedImages = () => {
               <img
                 src={image?.medium_image}
                 alt="AI Generated Image"
-                className="w-full h-full object-cover rounded-lg cursor-pointer transition duration-300 ease-in-out group-hover:brightness-75"
+                className="w-full h-full object-cover rounded-lg cursor-pointer transition duration-300 ease-in-out group-hover:brightness-75 group-hover:-translate-y-1 group-hover:translate-x-1"
               />
               {/* Text Overlay */}
               <div className="absolute bottom-0 left-0 w-full p-2 text-white text-sm bg-opacity-50 py-2 opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out">

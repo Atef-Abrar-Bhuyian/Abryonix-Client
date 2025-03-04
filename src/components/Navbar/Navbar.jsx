@@ -83,11 +83,12 @@ const Navbar = () => {
         {/* Get Start Button */}
         {!user && (
           <Link
-            to="/login"
-            className="hidden lg:inline-block border-2 border-purple-500 px-4 py-2 rounded-lg text-white transition-all hover:bg-purple-500/20"
-          >
-            Get Start
-          </Link>
+          to="/login"
+          className="hidden lg:inline-block relative px-6 py-2 rounded-lg text-white font-medium transition-all duration-300 border border-purple-600 backdrop-blur-md bg-transparent hover:bg-[#250038] hover:border-purple-400 hover:shadow-[0_0_10px_rgba(168,85,247,0.5)]"
+        >
+          Get Started
+        </Link>        
+        
         )}
 
         {user && (

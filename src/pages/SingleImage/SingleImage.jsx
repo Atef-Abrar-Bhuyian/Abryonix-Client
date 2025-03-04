@@ -118,7 +118,7 @@ const SingleImage = () => {
                 name="comment"
                 type="text"
                 className="p-4 w-full rounded-md border-t-0 border-l-0 border-r-0 border-b-white border-2 pr-10 bg-transparent focus:outline-none"
-                placeholder="Comment Here"
+                placeholder="Share your thoughts on this image..."
               />
               <LuSendHorizontal className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white cursor-pointer" />
             </form>

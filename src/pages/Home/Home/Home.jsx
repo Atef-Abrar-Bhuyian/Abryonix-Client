@@ -1,13 +1,15 @@
-import Pricing from "../Pricing/Pricing";
 import HeroBanner from "../HeroBanner/HeroBanner";
 import Features from "../Features/Features";
+import GeneratedImages from "../GeneratedImages/GeneratedImages";
 
 const Home = () => {
   return (
     <div>
       <HeroBanner></HeroBanner>
       <Features></Features>
-      <Pricing></Pricing>
+      {/* <Pricing></Pricing> */}
+      <GeneratedImages></GeneratedImages>
+
     </div>
   );
 };
