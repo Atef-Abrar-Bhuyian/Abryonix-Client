@@ -14,7 +14,7 @@ const SingleImage = () => {
   const axiosPublic = useAxiosPublic();
   const [images, setImages] = useState({});
   const [allComments, setAllComments] = useState([]);
-  console.log(allComments);
+  // console.log(allComments);
 
   useEffect(() => {
     const fetchImages = async () => {

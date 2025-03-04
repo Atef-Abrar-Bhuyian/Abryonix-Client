@@ -7,7 +7,7 @@ import Heading from "../../../components/Heading/Heading";
 const GeneratedImages = () => {
   const axiosPublic = useAxiosPublic();
   const [images, setImages] = useState([]);
-  console.log(images);
+  // console.log(images);
 
   useEffect(() => {
     const fetchImages = async () => {

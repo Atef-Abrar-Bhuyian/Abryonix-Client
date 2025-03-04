@@ -20,7 +20,7 @@ const Login = () => {
 
     signIn(email, password)
       .then((result) => {
-        // console.log(result);
+
         Swal.fire({
           title: "Login Successful",
           background: "#6b21a8",
@@ -41,7 +41,7 @@ const Login = () => {
           `,
           },
         });
-        navigate("/dashboard");
+        navigate("/");
       })
       .catch((err) => {
         Swal.fire({

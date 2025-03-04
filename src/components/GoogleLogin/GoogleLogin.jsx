@@ -18,7 +18,7 @@ const GoogleLogIn = () => {
         photoURL: result?.user?.photoURL,
       };
       axiosPublic.post("/create/profile/user", userInfo).then((res) => {
-        console.log(res);
+        // console.log(res);
         Swal.fire({
           title: "Login Successful",
           background: "#6b21a8",

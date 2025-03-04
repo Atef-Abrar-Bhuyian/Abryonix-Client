@@ -20,7 +20,7 @@ const AllGeneratedImages = () => {
           .map(({ value }) => value);
         setImages(res);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         setError("Error fetching images");
       } finally {
         setLoading(false);
