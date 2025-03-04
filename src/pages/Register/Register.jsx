@@ -1,6 +1,5 @@
 import { Fade } from "react-awesome-reveal";
 import { BsRobot } from "react-icons/bs";
-import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import GoogleLogIn from "../../components/GoogleLogin/GoogleLogin";
 

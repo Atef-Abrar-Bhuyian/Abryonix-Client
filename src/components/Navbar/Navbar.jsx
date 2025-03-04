@@ -15,8 +15,6 @@ const Navbar = () => {
     { name: "Home", path: "/" },
     { name: "All Images", path: "/allImages" },
     { name: "Generate", path: "/generateImage" },
-    { name: "Roadmap", path: "/roadmap" },
-    { name: "How to use", path: "/how-to-use" },
   ];
 
   const handleLogOut = () => {
@@ -50,7 +48,7 @@ const Navbar = () => {
   };
 
   return (
-      <div className="fixed top-0 z-20 w-full backdrop-blur-xl bg-transparent shadow-md animate__animated animate__fadeInDown">
+    <div className="fixed top-0 z-20 w-full backdrop-blur-xl bg-transparent shadow-md animate__animated animate__fadeInDown">
       <div className="container mx-auto flex items-center justify-between px-6 py-2 ">
         {/* Logo */}
         <Link
@@ -83,23 +81,22 @@ const Navbar = () => {
         {/* Get Start Button */}
         {!user && (
           <Link
-          to="/login"
-          className="hidden lg:inline-block relative px-6 py-2 rounded-lg text-white font-medium transition-all duration-300 border border-purple-600 backdrop-blur-md bg-transparent hover:bg-[#250038] hover:border-purple-400 hover:shadow-[0_0_10px_rgba(168,85,247,0.5)]"
-        >
-          Get Started
-        </Link>        
-        
+            to="/login"
+            className="hidden lg:inline-block relative px-6 py-2 rounded-lg text-white font-medium transition-all duration-300 border border-purple-600 backdrop-blur-md bg-transparent hover:bg-[#250038] hover:border-purple-400 hover:shadow-[0_0_10px_rgba(168,85,247,0.5)]"
+          >
+            Get Started
+          </Link>
         )}
 
         {user && (
           <div className="dropdown dropdown-end hidden lg:inline-block">
             <button
               className="avatar avatar-online cursor-pointer"
-              tabIndex={0} 
+              tabIndex={0}
             >
               <div className="w-14 rounded-full">
                 <img
-                referrerPolicy="no-referrer"
+                  referrerPolicy="no-referrer"
                   src={user?.photoURL}
                   alt="User Avatar"
                 />
@@ -108,7 +105,7 @@ const Navbar = () => {
 
             <ul
               className="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm mt-3 p-2"
-              tabIndex={0} 
+              tabIndex={0}
             >
               <li>
                 <Link
@@ -195,7 +192,6 @@ const Navbar = () => {
         </div>
       )}
     </div>
-
   );
 };
 
