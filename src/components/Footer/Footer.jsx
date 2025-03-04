@@ -13,9 +13,9 @@ const Footer = () => {
           Abryon<span className="text-purple-500">ix</span>
         </Link>
         <p>
-          ACME Industries Ltd.
+          Innovating the future of AI. 🚀
           <br />
-          Providing reliable tech since 1992
+          Crafting intelligent visuals since 2024.
         </p>
       </aside>
       <nav>

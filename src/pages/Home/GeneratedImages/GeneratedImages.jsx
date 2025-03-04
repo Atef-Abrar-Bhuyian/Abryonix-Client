@@ -24,10 +24,10 @@ const GeneratedImages = () => {
   return (
     <div className="bg-black">
       <div className="w-11/12 mx-auto">
-        <Fade delay={500}>
+        <Fade>
           <Heading heading={"Generated Images"} />{" "}
         </Fade>
-        <Fade delay={1000}>
+        <Fade>
           {/* Using the columns utility to create masonry effect */}
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 min-h-screen">
             {images.map((image) => (
