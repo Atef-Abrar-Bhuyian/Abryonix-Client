@@ -69,6 +69,17 @@ const SingleImage = () => {
 
     if (!comment) return;
 
+    if (user?.email === images?.email) {
+      Swal.fire({
+        icon: "error",
+        title: "You cannot comment on your own image",
+        background: "#6b21a8",
+        color: "#fff",
+        confirmButtonColor: "#3b0764",
+      });
+      return;
+    }
+
     const document = {
       prompt: images?.prompt,
       imageId,
