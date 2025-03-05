@@ -7,6 +7,7 @@ import Register from "../pages/Register/Register";
 import PrivateRoute from "./routes/PrivateRoute/PrivateRoute";
 import AllGeneratedImages from "../pages/AllGeneratedImage/AllGeneratedImages";
 import SingleImage from "../pages/SingleImage/SingleImage";
+import Profile from "../pages/Profile/Profile";
 
 const RouteLayout = () => {
   return (
@@ -29,6 +30,14 @@ const RouteLayout = () => {
           element={
             <PrivateRoute>
               <SingleImage />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/myProfile"
+          element={
+            <PrivateRoute>
+              <Profile />
             </PrivateRoute>
           }
         ></Route>

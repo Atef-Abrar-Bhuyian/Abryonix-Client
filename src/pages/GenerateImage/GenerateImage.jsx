@@ -38,9 +38,9 @@ export default function GenerateImagePage() {
   };
 
   return (
-    <div className="mt-12 lg:mt-20 flex flex-col md:flex-row min-h-screen bg-[#0F0F1A] text-white">
+    <div className="pt-12 lg:pt-20 flex flex-col md:flex-row min-h-screen text-white bg-gradient-to-t from-black via-[#250038] to-black">
       {/* Sidebar (Remains Side) */}
-      <div className="w-full md:w-1/4 bg-[#161624] p-6 flex flex-col gap-4">
+      <div className="w-full md:w-1/4  p-6 flex flex-col gap-4 bg-gradient-to-t from-black via-[#250038] to-black border-r">
         <div>
           <h2 className="text-lg font-semibold">Model / Preset</h2>
           <select

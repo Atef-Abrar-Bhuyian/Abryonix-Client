@@ -104,12 +104,12 @@ const Navbar = () => {
             </button>
 
             <ul
-              className="dropdown-content menu w-52 rounded-box bg-gradient-to-r from-purple-900 via-pink-700 to-violet-900  shadow-sm mt-3 p-2"
+              className="dropdown-content menu w-52 rounded-box bg-gradient-to-t from-black via-purple-800 to-black  shadow-sm mt-3 p-2"
               tabIndex={0}
             >
               <li>
                 <Link
-                  to={"profile"}
+                  to={"myProfile"}
                   className="hidden lg:inline-block px-4 py-2 rounded-lg text-white transition-all hover:bg-purple-500/20"
                 >
                   My Profile
