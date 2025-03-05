@@ -8,13 +8,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { LuSendHorizontal } from "react-icons/lu";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { useQuery, useMutation } from "@tanstack/react-query";
 
 const SingleImage = () => {
   const { id: imageId } = useParams();
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
   const [images, setImages] = useState({});
-  const [allComments, setAllComments] = useState([]);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -24,13 +24,31 @@ const SingleImage = () => {
     fetchImages();
   }, [axiosPublic, imageId]);
 
-  useEffect(() => {
-    const fetchComments = async () => {
+  const {
+    data: allComments = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["comments", imageId],
+    queryFn: async () => {
       const res = await axiosPublic.get(`/commentRoute/image/${imageId}`);
-      setAllComments(res.data);
-    };
-    fetchComments();
-  }, [axiosPublic, imageId]);
+      return res.data;
+    },
+  });
+
+  // Mutation to post a comment
+  const { mutate: createComment } = useMutation({
+    mutationFn: async (document) => {
+      return await axiosPublic.post(`/commentRoute/createComment`, document);
+    },
+    onSuccess: () => {
+      // Trigger the query to refetch comments after a successful mutation
+      refetch();
+    },
+    onError: (error) => {
+      console.error("Error posting comment:", error);
+    },
+  });
 
   const handleCopy = () => {
     toast.success("Prompt copied to clipboard!", {
@@ -45,38 +63,12 @@ const SingleImage = () => {
     });
   };
 
-  const handleSendComment = (e) => {
+  const handleSendComment = async (e) => {
     e.preventDefault();
     const comment = e.target.comment.value.trim();
 
     if (!comment) return;
 
-    if (user?.email === images?.email) {
-      Swal.fire({
-        icon: "error",
-        title: "You cannot commnet on your generated image",
-        background: "#6b21a8",
-        color: "#fff",
-        confirmButtonColor: "#3b0764",
-        showClass: {
-          popup: `
-                animate__animated
-                animate__fadeInUp
-                animate__faster
-              `,
-        },
-        hideClass: {
-          popup: `
-                animate__animated
-                animate__fadeOutDown
-                animate__faster
-              `,
-        },
-      });
-      return;
-    }
-
-    // Construct the document
     const document = {
       prompt: images?.prompt,
       imageId,
@@ -85,9 +77,8 @@ const SingleImage = () => {
       comment,
     };
 
-    // Send the comment to the backend
-    axiosPublic.post(`/commentRoute/createComment`, document);
-    // Reset input field after submitting
+    // Use the mutate function from useMutation to create the comment
+    createComment(document);
     e.target.reset();
   };
 
@@ -98,7 +89,7 @@ const SingleImage = () => {
           <img
             className="rounded-xl"
             src={images?.original_image}
-            alt="AI Generated Photo"
+            alt="AI Generated"
           />
         </div>
         <div className="flex-1 px-2">
@@ -107,7 +98,7 @@ const SingleImage = () => {
               <img
                 className="w-12 rounded-full"
                 src={images?.photoURL}
-                alt="User Image"
+                alt="User"
               />
               <div className="space-y-1">
                 <h5>{images?.displayName}</h5>
@@ -116,6 +107,7 @@ const SingleImage = () => {
             </div>
             <FaRegHeart />
           </div>
+
           <div>
             <p className="mt-3 text-justify">
               <span className="font-bold">Prompt</span>: {images?.prompt}
@@ -123,13 +115,13 @@ const SingleImage = () => {
             <div className="flex gap-3">
               <CopyToClipboard text={images?.prompt || ""} onCopy={handleCopy}>
                 <button className="btn mt-4 py-2 px-4 border w-fit rounded-2xl border-white text-sm flex items-center justify-center gap-2">
-                  Copy This Prompt <FaRegCopy className="text-lg" />
+                  Copy Prompt <FaRegCopy className="text-lg" />
                 </button>
               </CopyToClipboard>
-              <p className="mt-4 py-2 px-4 border w-fit rounded-2xl border-white text-sm flex items-center justify-center">
+              <p className="mt-4 py-2 px-4 border w-fit rounded-2xl border-white text-sm">
                 {images?.category}
               </p>
-              <p className="mt-4 py-2 px-4 border w-fit rounded-2xl border-white text-sm flex items-center justify-center">
+              <p className="mt-4 py-2 px-4 border w-fit rounded-2xl border-white text-sm">
                 Fast
               </p>
             </div>
@@ -144,7 +136,7 @@ const SingleImage = () => {
                 name="comment"
                 type="text"
                 className="p-4 w-full rounded-md border-t-0 border-l-0 border-r-0 border-b-white border-2 pr-10 bg-transparent focus:outline-none"
-                placeholder="Share your thoughts on this image..."
+                placeholder="Share your thoughts..."
               />
               <button
                 type="submit"
@@ -155,10 +147,9 @@ const SingleImage = () => {
             </form>
           </div>
 
-          {/* Comments */}
+          {/* Comments Section */}
           {allComments.map((comment) => (
             <div key={comment?._id} className="flex flex-col mt-6">
-              {/* User's Comment */}
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-8 h-8 rounded-full overflow-hidden">
                   <img
@@ -183,7 +174,7 @@ const SingleImage = () => {
                 </div>
               </div>
 
-              {/* AI's Reply */}
+              {/* AI Reply */}
               {comment?.reply && (
                 <div className="ml-12 flex items-center gap-3 mt-1">
                   <div className="w-8 h-8 rounded-full overflow-hidden">
@@ -206,6 +197,7 @@ const SingleImage = () => {
               )}
             </div>
           ))}
+          {isLoading && <h1>Reloading</h1>}
         </div>
       </div>
     </div>
