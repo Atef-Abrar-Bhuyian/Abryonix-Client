@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { LuSendHorizontal } from "react-icons/lu";
 import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const SingleImage = () => {
   const { id: imageId } = useParams();
@@ -14,7 +15,6 @@ const SingleImage = () => {
   const axiosPublic = useAxiosPublic();
   const [images, setImages] = useState({});
   const [allComments, setAllComments] = useState([]);
-  // console.log(allComments);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -50,6 +50,31 @@ const SingleImage = () => {
     const comment = e.target.comment.value.trim();
 
     if (!comment) return;
+
+    if (user?.email === images?.email) {
+      Swal.fire({
+        icon: "error",
+        title: "You cannot commnet on your generated image",
+        background: "#6b21a8",
+        color: "#fff",
+        confirmButtonColor: "#3b0764",
+        showClass: {
+          popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `,
+        },
+        hideClass: {
+          popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+        },
+      });
+      return;
+    }
 
     // Construct the document
     const document = {
@@ -109,6 +134,7 @@ const SingleImage = () => {
               </p>
             </div>
           </div>
+
           <div className="mt-6">
             <form
               onSubmit={handleSendComment}
@@ -120,9 +146,15 @@ const SingleImage = () => {
                 className="p-4 w-full rounded-md border-t-0 border-l-0 border-r-0 border-b-white border-2 pr-10 bg-transparent focus:outline-none"
                 placeholder="Share your thoughts on this image..."
               />
-              <LuSendHorizontal className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white cursor-pointer" />
+              <button
+                type="submit"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white"
+              >
+                <LuSendHorizontal className="cursor-pointer" />
+              </button>
             </form>
           </div>
+
           {/* Comments */}
           {allComments.map((comment) => (
             <div key={comment?._id} className="flex flex-col mt-6">

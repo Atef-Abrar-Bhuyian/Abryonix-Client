@@ -66,7 +66,7 @@ const Navbar = () => {
               key={link.path}
               to={link.path}
               className={`relative px-6 py-3 text-white text-md font-medium transition-all duration-300 
-                after:absolute after:left-0 after:bottom-1 after:h-[2px] after:bg-purple-400 after:w-0 after:transition-all after:duration-300 before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-[90%] before:h-[70%] before:bg-purple-500/10 before:rounded-lg before:blur-md before:opacity-0 before:transition-all before:duration-300
+                after:absolute after:left-0 after:bottom-1 after:h-[2px] after:bg-purple-400 after:w-0 after:transition-all after:duration-300 before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-[90%] before:h-[70%] before:bg-purple-500/30 before:rounded-lg before:blur-md before:opacity-0 before:transition-all before:duration-300
                 ${
                   location.pathname === link.path
                     ? "text-purple-400 before:opacity-100 after:w-full"
@@ -104,7 +104,7 @@ const Navbar = () => {
             </button>
 
             <ul
-              className="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm mt-3 p-2"
+              className="dropdown-content menu w-52 rounded-box bg-gradient-to-r from-purple-900 via-pink-700 to-violet-900  shadow-sm mt-3 p-2"
               tabIndex={0}
             >
               <li>

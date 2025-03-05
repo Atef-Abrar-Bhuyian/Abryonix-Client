@@ -95,7 +95,7 @@ export default function GenerateImagePage() {
       {/* Main Content */}
       <div className="w-full md:w-3/4 p-6">
         <div className="bg-[#1C1C2E] p-6 rounded-xl shadow-md">
-          <h1 className="text-2xl font-bold mb-4 text-center md:text-left">
+          <h1 className="text-2xl font-bold mb-4 text-center md:text-left bg-gradient-to-r from-purple-500 via-pink-700 to-violet-800 bg-clip-text text-transparent">
             Generate AI Image
           </h1>
           <textarea
